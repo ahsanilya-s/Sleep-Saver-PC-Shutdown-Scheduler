@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shutdown Scheduler</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Schedule PC Shutdown</h1>
+        <div class="input-group">
+            <label for="minutes">Enter minutes:</label>
+            <input type="number" id="minutes" name="minutes" min="1">
+        </div>
+        <div class="button-group">
+            <button onclick="scheduleShutdown()">Schedule Shutdown</button>
+            <button onclick="cancelShutdown()" class="cancel-button">Cancel Shutdown</button>
+        </div>
+        <p id="response"></p>
+        <p id="countdown"></p>
+    </div>
+
+    <script>
+        let countdownInterval;
+
+        function scheduleShutdown() {
+            const minutes = document.getElementById('minutes').value;
+            fetch('/schedule_shutdown', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ minutes: parseInt(minutes) })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('response').innerText = data.message;
+                startCountdown(minutes * 60);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        function cancelShutdown() {
+            fetch('/cancel_shutdown', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('response').innerText = data.message;
+                clearInterval(countdownInterval);
+                document.getElementById('countdown').innerText = "";
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        function startCountdown(seconds) {
+            clearInterval(countdownInterval);
+            countdownInterval = setInterval(() => {
+                if (seconds > 0) {
+                    seconds--;
+                    document.getElementById('countdown').innerText = `Time remaining: ${formatTime(seconds)}`;
+                } else {
+                    clearInterval(countdownInterval);
+                }
+            }, 1000);
+        }
+
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const sec = seconds % 60;
+            return `${minutes}m ${sec}s`;
+        }
+    </script>
+</body>
+</html>

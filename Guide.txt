@@ -1,0 +1,47 @@
+Certainly! Here's a simple guide on how to run the PC shutdown scheduler project on any PC:
+
+### Running the PC Shutdown Scheduler Project
+
+#### Prerequisites:
+1. **Python**: Ensure Python is installed on your PC. You can download it from [python.org](https://www.python.org/downloads/).
+2. **Flask**: Install Flask using pip. Open your command prompt or terminal and run:
+   ```
+   pip install flask
+   ```
+
+#### Steps to Run the Project:
+
+1. **Download the Project Files**:
+   - Download the project files which include `app.py`, `index.html`, and `styles.css` from the repository or wherever you have stored them.
+
+2. **Navigate to the Project Directory**:
+   - Open your command prompt or terminal and navigate to the directory where you have saved the project files.
+
+3. **Run the Flask Server**:
+   - Execute the following command to start the Flask server:
+     ```
+     python app.py
+     ```
+   - This command starts the server on your local machine.
+
+4. **Access the Web App**:
+   - Open a web browser (Chrome, Firefox, etc.) and go to the following address:
+     ```
+     http://127.0.0.1:5000
+     ```
+   - Alternatively, you can use:
+     ```
+     http://localhost:5000
+     ```
+   - This will open the PC shutdown scheduler web app interface.
+
+5. **Using the Web App**:
+   - Enter the number of minutes after which you want your PC to shut down.
+   - Click on the "Schedule Shutdown" button to activate the scheduler.
+   - If you need to cancel the shutdown, simply click on the "Cancel Shutdown" button.
+   - A countdown timer will display the remaining time until the shutdown, enhancing your experience.
+
+6. **Shutdown Management**:
+   - Once scheduled, the app will handle the shutdown process based on your input, making it easy to manage power consumption while enjoying your music or other activities.
+
+By following these steps, you can easily set up and run the PC shutdown scheduler project on any PC, ensuring efficient power management and enhancing your sleep routine.
